@@ -1,0 +1,126 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.wunderkinder.wunderlistandroid</groupId>
+  <artifactId>wunderlist</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Wunderlist Android UI Automation</name>
+  <description>Wunderlist Android Automation with Apium  and Cucumber</description>
+  
+  <!--  https://github.com/dilankadon/AppiumCrossPlatformIosAndroid/blob/master/pom.xml -->
+    <properties>
+        <java.version>1.8</java.version>
+        <junit.version>4.12</junit.version>
+        <cucumber.version>1.2.4</cucumber.version>
+        <maven.compiler.version>3.3</maven.compiler.version>
+    </properties>
+
+    <dependencies>
+	        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>5.0.0-BETA8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+           <groupId>com.github.cukedoctor</groupId>
+           <artifactId>Cukedoctor-converter</artifactId>
+           <version>1.0.6</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>               
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/cucumber/*.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            
+            <plugin> <!-- https://damienfremont.com/2016/05/09/how-to-cucumber-test-report-plugin-2-with-maven-and-java/ -->
+		        <groupId>net.masterthought</groupId>
+		        <artifactId>maven-cucumber-reporting</artifactId>
+		        <version>2.0.0</version>
+		        <executions>
+			          <execution>
+				            <id>execution</id>
+				            <phase>verify</phase>
+				            <goals>
+				               <goal>generate</goal>
+				            </goals>
+				            <configuration>
+					              <projectName>cucumber-jvm-example</projectName>
+					              <outputDirectory>${project.build.directory}/site/cucumber-reports</outputDirectory>
+					              <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+					              <skippedFails>true</skippedFails>
+					              <enableFlashCharts>false</enableFlashCharts>
+					              <buildNumber>42</buildNumber>
+				            </configuration>
+			          </execution>
+		        </executions>
+           </plugin>
+            
+        </plugins>
+    </build>
+  
+</project>

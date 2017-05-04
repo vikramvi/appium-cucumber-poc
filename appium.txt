@@ -1,0 +1,4 @@
+[caps]
+platformName = "Android"
+deviceName = "placeholder string"
+app = "/Users/vikram-anna/Documents/Noa/Workspace/QA Docs/Presentation/com.wunderkinder.wunderlistandroid.apk"
