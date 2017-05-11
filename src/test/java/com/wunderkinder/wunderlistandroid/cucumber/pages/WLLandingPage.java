@@ -38,12 +38,15 @@ public class WLLandingPage extends Helpers {
     }
     
     public boolean gotoSignInScreen(){
-	WLSignInButton.click();
+	if(isElementPresent(WLSignInButton,3)){
+	    WLSignInButton.click();
+	}
+	
 	if(isElementPresent(WLSignInScreenTitle,4)){
 	    return true;
 	}else{
 	    return false;
 	}
     }
-          
+              
 }

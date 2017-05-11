@@ -11,10 +11,12 @@ import java.util.concurrent.TimeUnit;
 
 import com.wunderkinder.wunderlistandroid.utils.Helpers;
 
-public class WLSignInPage extends Helpers {
+public class WLSignInPage extends Helpers{
     //-------------------------------------------------------------------------------------------
     //Mobile Elements Identifiers
     //-------------------------------------------------------------------------------------------
+    @AndroidFindBy(id="com.wunderkinder.wunderlistandroid:id/header_title_textview")
+    MobileElement WLSignInScreenTitle;
     
     @AndroidFindBy(id="com.wunderkinder.wunderlistandroid:id/login_email_edittext")
     MobileElement WLEmailField;
@@ -25,6 +27,20 @@ public class WLSignInPage extends Helpers {
     @AndroidFindBy(id="com.wunderkinder.wunderlistandroid:id/login_button")
     MobileElement WLSignInButton;
     
+    @AndroidFindBy(id="com.wunderkinder.wunderlistandroid:id/forgot_password_textView")
+    MobileElement WLForgotYourPasswordLink;
+    
+    @AndroidFindBy(id="com.wunderkinder.wunderlistandroid:id/header_title_textview")
+    MobileElement WLResetPasswordEmailField;
+    
+    @AndroidFindBy(id="com.wunderkinder.wunderlistandroid:id/forgot_password_button")
+    MobileElement WLPasswordResetButton;
+    
+    @AndroidFindBy(id="android:id/message")
+    MobileElement ResetPasswordDialogText;
+    
+    @AndroidFindBy(id="android:id/button1")
+    MobileElement ResetPasswordDialogButton;
     
     //-------------------------------------------------------------------------------------------
     //Methods to do actions in this Page Object 
@@ -36,6 +52,14 @@ public class WLSignInPage extends Helpers {
    	PageFactory.initElements(new AppiumFieldDecorator(driver, 1, TimeUnit.SECONDS), this);
      }
     
+    public boolean isSignInScreen(){
+	if(isElementPresent(WLSignInScreenTitle,4)){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+    
     public void enterEmailId(String validEmail){
 	WLEmailField.sendKeys(validEmail);
     }
@@ -45,11 +69,39 @@ public class WLSignInPage extends Helpers {
     }
     
     public boolean isSignInButtonEnabled(){
-    	if(WLSignInButton.isEnabled()){
-    	    return true;
+    	if(isElementPresent(WLSignInButton,5)){
+        	if(WLSignInButton.isEnabled()){
+        	    return true;
+        	}else{
+        	    return false;
+        	}
     	}else{
     	    return false;
     	}
+    }
+    
+    public boolean clickWLForgotYourPasswordLink(){
+	WLForgotYourPasswordLink.click();
+	
+	if(WLResetPasswordEmailField.isEnabled()){
+	    return true;
+	}else{
+	    return false;
+	}
+    }
+    
+    public boolean completeResetPasswordFlow(String email){
+	WLResetPasswordEmailField.clear();
+	WLResetPasswordEmailField.sendKeys(email);
+	WLPasswordResetButton.click();
+	
+	if(isElementPresent(ResetPasswordDialogText,5)){
+	    ResetPasswordDialogButton.click();
+	    return true;
+	}else{
+	    return false;
+	}
+	
     }
     
 }

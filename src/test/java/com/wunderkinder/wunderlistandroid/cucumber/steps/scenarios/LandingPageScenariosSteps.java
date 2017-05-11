@@ -29,9 +29,14 @@ public class LandingPageScenariosSteps {
     
     @Given("^User is on Sign In Page$")
     public void gotoSignInPage(){
-	assertThat( HomePage.gotoSignInScreen());
+	assertThat( HomePage.gotoSignInScreen()).isTrue();
     }
         
+    @Given("^User taps Forgot your password link$")
+    public void clickForgotYourPasswordLink(){
+	assertThat( SignInPage.clickWLForgotYourPasswordLink() ).isTrue();
+    }
+    
   //------- When
     
     @When("^User enters valid email id$")
@@ -44,11 +49,20 @@ public class LandingPageScenariosSteps {
 	SignInPage.enterPassword("");
     }
         
+    @When("^User completes reset password actions$")
+    public void doResetPasswordActions(){
+	assertThat( SignInPage.completeResetPasswordFlow(validEmailId) ).isTrue();
+    }
    //---------- Then
     
     @Then("^Sign In button remains in disabled state$")
     public void verifySignInButtonStatus(){
 	assertThat( SignInPage.isSignInButtonEnabled() ).isFalse();
+    }
+    
+    @Then("^User goes back to Sign In Page$")
+    public void verifyUserIsTakenBackToLoginScreen(){
+	assertThat(SignInPage.isSignInScreen() ).isTrue();
     }
         
 }
